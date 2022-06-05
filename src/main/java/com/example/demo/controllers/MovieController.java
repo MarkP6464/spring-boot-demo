@@ -30,6 +30,11 @@ public class MovieController {
 	@Autowired
 	MovieService Mservice;
 	
+	@GetMapping("")
+	public String hello() {
+		return "Hello there!";
+	}
+	
 	@GetMapping("movies")
 	public List<Movie> movieList() {
 		return Mservice.findAll();
