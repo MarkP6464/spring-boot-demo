@@ -17,7 +17,6 @@ public class episodesDTO {
 	
 	public Episodes toEpisodes() {
 		Episodes epi = new Episodes();
-		epi.setMovies(this.getMovies());
 		epi.setServers(this.getServers());
 		return epi;
 	}

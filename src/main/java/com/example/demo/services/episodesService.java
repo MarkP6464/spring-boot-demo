@@ -11,17 +11,16 @@ import com.example.demo.entities.Episodes;
 public class episodesService {
 	@Autowired
 	episodesRepo epiRepo;
-	
+
 	@Autowired
 	ServerService svService;
-	
+
 	public void save(Episodes eps) {
-		
-		eps.getServers().forEach(t -> 
-								{
-									t.setEpisodes(eps);
-									svService.saveForServerData(t);
-								});
+
+		eps.getServers().forEach(t -> {
+			t.setEpisodes(eps);
+			svService.saveForServerData(t);
+		});
 		epiRepo.save(eps);
 	}
 }

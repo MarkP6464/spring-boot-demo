@@ -14,14 +14,14 @@ import com.example.demo.entities.Episodes;
 import com.example.demo.services.episodesService;
 
 @RestController
-@RequestMapping("/demo")
+@RequestMapping("")
 @CrossOrigin("*")
 @ResponseBody
 public class EpisodesController {
 	@Autowired
 	episodesService epiService;
 	
-	@PostMapping("/add/episodes")
+	@PostMapping("episodes/add")
 	public void addAMovie(@RequestBody episodesDTO eps) {
 		System.out.println(eps.getServers());
 

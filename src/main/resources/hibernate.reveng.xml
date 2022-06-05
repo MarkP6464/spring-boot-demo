@@ -2,18 +2,17 @@
 <!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.org/dtd/hibernate-reverse-engineering-3.0.dtd" >
 
 <hibernate-reverse-engineering>
-  <table-filter match-catalog="FirstProject" match-schema="dbo" match-name="act"/>
-  <table-filter match-catalog="FirstProject" match-schema="dbo" match-name="actor"/>
-  <table-filter match-catalog="FirstProject" match-schema="dbo" match-name="belong"/>
-  <table-filter match-catalog="FirstProject" match-schema="dbo" match-name="category"/>
-  <table-filter match-catalog="FirstProject" match-schema="dbo" match-name="connection"/>
-  <table-filter match-catalog="FirstProject" match-schema="dbo" match-name="country"/>
-  <table-filter match-catalog="FirstProject" match-schema="dbo" match-name="director"/>
-  <table-filter match-catalog="FirstProject" match-schema="dbo" match-name="episodes"/>
-  <table-filter match-catalog="FirstProject" match-schema="dbo" match-name="made_of"/>
-  <table-filter match-catalog="FirstProject" match-schema="dbo" match-name="make"/>
-  <table-filter match-catalog="FirstProject" match-schema="dbo" match-name="modified"/>
-  <table-filter match-catalog="FirstProject" match-schema="dbo" match-name="movie"/>
-  <table-filter match-catalog="FirstProject" match-schema="dbo" match-name="server"/>
-  <table-filter match-catalog="FirstProject" match-schema="dbo" match-name="server_data"/>
+  <table-filter match-catalog="FirstProject1" match-schema="dbo" match-name="act"/>
+  <table-filter match-catalog="FirstProject1" match-schema="dbo" match-name="actor"/>
+  <table-filter match-catalog="FirstProject1" match-schema="dbo" match-name="belong"/>
+  <table-filter match-catalog="FirstProject1" match-schema="dbo" match-name="category"/>
+  <table-filter match-catalog="FirstProject1" match-schema="dbo" match-name="connection"/>
+  <table-filter match-catalog="FirstProject1" match-schema="dbo" match-name="country"/>
+  <table-filter match-catalog="FirstProject1" match-schema="dbo" match-name="director"/>
+  <table-filter match-catalog="FirstProject1" match-schema="dbo" match-name="episodes"/>
+  <table-filter match-catalog="FirstProject1" match-schema="dbo" match-name="made_of"/>
+  <table-filter match-catalog="FirstProject1" match-schema="dbo" match-name="modified"/>
+  <table-filter match-catalog="FirstProject1" match-schema="dbo" match-name="movie"/>
+  <table-filter match-catalog="FirstProject1" match-schema="dbo" match-name="server"/>
+  <table-filter match-catalog="FirstProject1" match-schema="dbo" match-name="server_data"/>
 </hibernate-reverse-engineering>

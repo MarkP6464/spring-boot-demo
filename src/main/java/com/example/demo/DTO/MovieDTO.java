@@ -3,13 +3,18 @@ package com.example.demo.DTO;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.hibernate.Session;
+
 import com.example.demo.entities.Act;
+import com.example.demo.entities.Actor;
 import com.example.demo.entities.Category;
 import com.example.demo.entities.Country;
 import com.example.demo.entities.Director;
 import com.example.demo.entities.Episodes;
 import com.example.demo.entities.Modified;
 import com.example.demo.entities.Movie;
+import com.example.demo.utils.HibernateUtil;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import lombok.Builder;
@@ -32,22 +37,25 @@ public class MovieDTO {
 	private String notify;
 	private String showtimes;
 	private String slug;
+	private String posterUrl;
+	private String subDocquyen;
+	private String chieurap;
 	private String isCopyright;
 	private Set<Category> categories = new HashSet<Category>(0);
 	private Set<Country> countries = new HashSet<Country>(0);
-	private Set<Director> directors = new HashSet<Director>(0);
+	private Set<String> directors = new HashSet<String>(0);
 	private Modified modifieds = new Modified();
-	private Set<Act> Act = new HashSet<Act>(0);
-	private Set<Episodes> episodeses = new HashSet<Episodes>(0);
+	private Set<String> Act = new HashSet<String>(0);
+//	private Set<Episodes> episodeses = new HashSet<Episodes>(0);
 	
 	public MovieDTO() {
 	}
 
-	public MovieDTO(String name, String originName, String content, String type, String status, String thumbUrl,
-			String time, String episodeCurrent, String episodeTotal, String quality, int year, String trailerUrl,
-			String lang, String notify, String showtimes, String slug, String isCopyright, Set<Category> categories,
-			Set<Country> countries, Set<Director> directors, Modified modifieds, Set<Act> Act,
-			Set<Episodes> episodeses) {
+	public MovieDTO(String name, String originName, String content, String type, String status,
+			String thumbUrl, String time, String episodeCurrent, String episodeTotal, String quality, int year,
+			String trailerUrl, String lang, String notify, String showtimes, String slug, String posterUrl,
+			String subDocquyen, String chieurap, String isCopyright, Set<Category> categories, Set<Country> countries,
+			Set<String> directors, Modified modifieds, Set<String> act) {
 		super();
 		this.name = name;
 		this.originName = originName;
@@ -65,13 +73,16 @@ public class MovieDTO {
 		this.notify = notify;
 		this.showtimes = showtimes;
 		this.slug = slug;
+		this.posterUrl = posterUrl;
+		this.subDocquyen = subDocquyen;
+		this.chieurap = chieurap;
 		this.isCopyright = isCopyright;
 		this.categories = categories;
 		this.countries = countries;
 		this.directors = directors;
 		this.modifieds = modifieds;
-		this.Act = Act;
-		this.episodeses = episodeses;
+		this.Act = act;
+//		this.episodeses = episodeses;
 	}
 
 	public String getName() {
@@ -82,6 +93,7 @@ public class MovieDTO {
 		this.name = name;
 	}
 
+	@JsonProperty(value = "origin_name")
 	public String getOriginName() {
 		return originName;
 	}
@@ -114,6 +126,8 @@ public class MovieDTO {
 		this.status = status;
 	}
 
+	
+	@JsonProperty(value = "thumb_url")
 	public String getThumbUrl() {
 		return thumbUrl;
 	}
@@ -130,6 +144,7 @@ public class MovieDTO {
 		this.time = time;
 	}
 
+	@JsonProperty(value = "episode_current")
 	public String getEpisodeCurrent() {
 		return episodeCurrent;
 	}
@@ -138,6 +153,7 @@ public class MovieDTO {
 		this.episodeCurrent = episodeCurrent;
 	}
 
+	@JsonProperty(value = "episode_total")
 	public String getEpisodeTotal() {
 		return episodeTotal;
 	}
@@ -161,7 +177,8 @@ public class MovieDTO {
 	public void setYear(int year) {
 		this.year = year;
 	}
-
+	
+	@JsonProperty(value = "trailer_url")
 	public String getTrailerUrl() {
 		return trailerUrl;
 	}
@@ -202,6 +219,7 @@ public class MovieDTO {
 		this.slug = slug;
 	}
 
+	@JsonProperty(value = "is_copyright")
 	public String getIsCopyright() {
 		return isCopyright;
 	}
@@ -210,6 +228,7 @@ public class MovieDTO {
 		this.isCopyright = isCopyright;
 	}
 
+	@JsonProperty(value = "category")
 	public Set<Category> getCategories() {
 		return categories;
 	}
@@ -218,6 +237,7 @@ public class MovieDTO {
 		this.categories = categories;
 	}
 
+	@JsonProperty(value = "country")
 	public Set<Country> getCountries() {
 		return countries;
 	}
@@ -226,83 +246,95 @@ public class MovieDTO {
 		this.countries = countries;
 	}
 
-	public Set<Director> getDirectors() {
+	@JsonProperty(value = "director")
+	public Set<String> getDirectors() {
 		return directors;
 	}
 
-	public void setDirectors(Set<Director> directors) {
+	public void setDirectors(Set<String> directors) {
 		this.directors = directors;
 	}
-
+	@JsonProperty(value = "modified")
 	public Modified getModifieds() {
 		return modifieds;
 	}
-
+	
 	public void setModifieds(Modified modifieds) {
 		this.modifieds = modifieds;
 	}
 
-	public Set<Act> getAct() {
+	@JsonProperty(value = "actor")
+	public Set<String> getAct() {
 		return Act;
 	}
 
-	public void setAct(Set<Act> Act) {
+	public void setAct(Set<String> Act) {
 		this.Act = Act;
 	}
 
-	public Set<Episodes> getEpisodeses() {
-		return episodeses;
-	}
+//	
+//	public Set<Episodes> getEpisodeses() {
+//		return episodeses;
+//	}
+//
+//	public void setEpisodeses(Set<Episodes> episodeses) {
+//		this.episodeses = episodeses;
+//	}
 
-	public void setEpisodeses(Set<Episodes> episodeses) {
-		this.episodeses = episodeses;
-	}
-
-	@Override
-	public String toString() {
-		return "MovieDTO [name=" + name + ", originName=" + originName + ", content=" + content + ", type=" + type
-				+ ", status=" + status + ", thumbUrl=" + thumbUrl + ", time=" + time + ", episodeCurrent="
-				+ episodeCurrent + ", episodeTotal=" + episodeTotal + ", quality=" + quality + ", year=" + year
-				+ ", trailerUrl=" + trailerUrl + ", lang=" + lang + ", notify=" + notify + ", showtimes=" + showtimes
-				+ ", slug=" + slug + ", isCopyright=" + isCopyright + ", categories=" + categories + ", countries="
-				+ countries + ", directors=" + directors + ", modifieds=" + modifieds + ", Act=" + Act
-				+ ", episodeses=" + episodeses + "]";
-	}
 	
-	public MovieDTO convertToDTO(ObjectNode node) {
-		MovieDTO movie = null;
-		this.name = node.get("name").asText();
-		this.originName = node.get("originName").asText();
-		this.content = node.get("content").asText();
-		this.type = node.get("type").asText();
-		this.status = node.get("status").asText();
-		this.thumbUrl = node.get("thumbUrl").asText();
-		this.time = node.get("time").asText();
-		this.episodeCurrent = node.get("episodeCurrent").asText();
-		this.episodeTotal = node.get("episodeCurrent").asText();
-		this.quality = node.get("quality").asText();
-		this.year = node.get("year").asInt();
-		this.trailerUrl = node.get("trailerUrl").asText();
-		this.lang = node.get("lang").asText();
-		this.notify = node.get("notify").asText();
-		this.showtimes = node.get("showtimes").asText();
-		this.slug = node.get("slug").asText();
-		this.isCopyright = node.get("isCopyright").asText();
-		if(!node.get("category").isEmpty()) {
-			String category = node.get("category").asText().trim();
-			String[] strParts = category.split(",");
-		}
-//		this.categories = node.get("categories").asText();
-//		this.countries = node.get("originName").asText();
-//		this.directors = node.get("originName").asText();
-//		this.modifieds = node.get("originName").asText();
-//		this.Act = node.get("originName").asText();
-//		this.episodeses = node.get("originName").asText();
-		
-		return movie;
+	
+	@JsonProperty(value = "poster_url")
+	public String getPosterUrl() {
+		return posterUrl;
+	}
+
+	public void setPosterUrl(String posterUrl) {
+		this.posterUrl = posterUrl;
+	}
+
+	@JsonProperty(value = "sub_docquyen")
+	public String getSubDocquyen() {
+		return subDocquyen;
+	}
+
+	public void setSubDocquyen(String subDocquyen) {
+		this.subDocquyen = subDocquyen;
+	}
+
+	@JsonProperty(value = "chieurap")
+	public String getChieurap() {
+		return chieurap;
+	}
+
+	public void setChieurap(String chieurap) {
+		this.chieurap = chieurap;
 	}
 	
 	public Movie toMovieEntity() {
+		HashSet<Director> dirSet = new HashSet<Director>();
+		if(directors.size()>0) {
+			directors.forEach(e -> {
+				Director newDi = new Director();
+				newDi.setName(e);
+				
+				dirSet.add(newDi);
+			});
+		}
+		
+		HashSet<Act> actSet = new HashSet<Act>();
+		if(Act.size()>0) {
+			Act.forEach(e -> {
+				Actor actor = new Actor();
+				actor.setName(e);
+				
+				Act act = new Act();
+				act.setActor(actor);
+				act.setName("Minh");
+				actSet.add(act);
+			});
+		}
+		
+		
 		return Movie.builder()
 				.name(name)
 				.originName(originName)
@@ -310,9 +342,9 @@ public class MovieDTO {
 				.episodeTotal(episodeTotal)
 				.content(content)
 				.categories(categories)
-				.acts(Act)
+				.acts(actSet)
 				.countries(countries)
-				.directors(directors)
+				.directors(dirSet)
 				.isCopyright(isCopyright)
 				.lang(lang)
 				.modified(modifieds)
@@ -321,12 +353,32 @@ public class MovieDTO {
 				.slug(slug)
 				.trailerUrl(trailerUrl)
 				.thumbUrl(thumbUrl)
-				.episodeses(episodeses)
+//				.episodeses(episodeses)
 				.notify(notify)
 				.status(status)
 				.type(type)
 				.year(year)
-				.time(time)
+				.time(time)	
+				.posterUrl(posterUrl)
+				.subDocquyen(subDocquyen)
+				.chieurap(chieurap)
 				.build();
 	}
+
+	@Override
+	public String toString() {
+		return "MovieDTO [name=" + name + ", originName=" + originName + ", content=" + content + ", type=" + type
+				+ ", status=" + status + ", thumbUrl=" + thumbUrl + ", time=" + time + ", episodeCurrent="
+				+ episodeCurrent + ", episodeTotal=" + episodeTotal + ", quality=" + quality + ", year=" + year
+				+ ", trailerUrl=" + trailerUrl + ", lang=" + lang + ", notify=" + notify + ", showtimes=" + showtimes
+				+ ", slug=" + slug + ", posterUrl=" + posterUrl + ", subDocquyen=" + subDocquyen + ", chieurap="
+				+ chieurap + ", isCopyright=" + isCopyright + ", categories=" + categories + ", countries=" + countries
+				+ ", directors=" + directors + ", modifieds=" + modifieds + ", Act=" + Act + "]";
+	}
+
+	
+
+
+
+	
 }
